@@ -29,14 +29,7 @@ public class SpotifyAuth extends AppCompatActivity {
 
     public static final String CLIENT_ID = "c595ba6b79e049888c9144dab1a16a39";
     public static final String REDIRECT_URI = "spotifydataapp://auth";
-    public static final int AUTH_TOKEN_REQUEST_CODE = 0;
-    public static final int AUTH_CODE_REQUEST_CODE = 1;
-
-    private final OkHttpClient mOkHttpClient = new OkHttpClient();
-    private String mAccessToken, mAccessCode;
-    private Call mCall;
-
-    private TextView tokenTextView, codeTextView, profileTextView;
+    private String mAccessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +48,7 @@ public class SpotifyAuth extends AppCompatActivity {
     // This method will open the Spotify login activity and get the access token.
     public void getToken() {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
-        AuthorizationClient.openLoginActivity(SpotifyAuth.this, AUTH_TOKEN_REQUEST_CODE, request);
+        AuthorizationClient.openLoginActivity(SpotifyAuth.this, 0, request);
     }
 
     // When the app leaves this activity to momentarily get a token/code, this function
@@ -69,7 +62,7 @@ public class SpotifyAuth extends AppCompatActivity {
         mAccessToken = response.getAccessToken();
         // Sets the new access token value in the API Accessor class
         SpotifyAPIAccessor.setmAccessToken(mAccessToken);
-        // Gets the relevant user data: TODO connect to database
+        // Gets the relevant user data
         SpotifyAPIAccessor.getTopUserTracks();
         SpotifyAPIAccessor.getTopUserArtists();
 
