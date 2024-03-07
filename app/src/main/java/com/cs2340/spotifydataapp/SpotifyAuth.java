@@ -69,33 +69,23 @@ public class SpotifyAuth extends AppCompatActivity {
 
     }
 
-    /**
-     * Get token from Spotify
-     * This method will open the Spotify login activity and get the token
-     * What is token?
-     * https://developer.spotify.com/documentation/general/guides/authorization-guide/
-     */
+    // Get token from Spotify.
+    // This method will open the Spotify login activity and get the token.
     public void getToken() {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
         AuthorizationClient.openLoginActivity(SpotifyAuth.this, AUTH_TOKEN_REQUEST_CODE, request);
     }
 
-    /**
-     * Get code from Spotify
-     * This method will open the Spotify login activity and get the code
-     * What is code?
-     * https://developer.spotify.com/documentation/general/guides/authorization-guide/
-     */
+    // Get code from Spotify.
+    // This method will open the Spotify login activity and get the code.
     public void getCode() {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.CODE);
         AuthorizationClient.openLoginActivity(SpotifyAuth.this, AUTH_CODE_REQUEST_CODE, request);
     }
 
 
-    /**
-     * When the app leaves this activity to momentarily get a token/code, this function
-     * fetches the result of that external activity to get the response from Spotify
-     */
+    // When the app leaves this activity to momentarily get a token/code, this function
+    // fetches the result of that external activity to get the response from Spotify
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -109,27 +99,26 @@ public class SpotifyAuth extends AppCompatActivity {
         } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
             mAccessCode = response.getCode();
             setTextAsync(mAccessCode, codeTextView);
+            System.out.println(mAccessCode);
         }
     }
 
-    /**
-     * Get user profile
-     * This method will get the user profile using the token
-     */
+    // Actual REST API call for information.
     public void onGetUserProfileClicked() {
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a request to get the user profile
+        // Create a request to get the user profile.
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/tracks")
+                .url("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=1")
+                //.url("https://api.spotify.com/v1/me/shows?offset=0&limit=20")
+                //.url("https://api.spotify.com/v1/users/mbqxflrx0pzpnmn6xpf3sayql")
+                //.url("https://api.spotify.com/v1/users/mbqxflrx0pzpnmn6xpf3sayql/playlists")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
-        System.out.println(request.headers());
-        System.out.println(request.url());
 
         cancelCall();
         mCall = mOkHttpClient.newCall(request);
@@ -147,6 +136,7 @@ public class SpotifyAuth extends AppCompatActivity {
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     setTextAsync(jsonObject.toString(3), profileTextView);
+                    System.out.println(jsonObject.toString());
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                     Toast.makeText(SpotifyAuth.this, "Failed to parse data, watch Logcat for more details",
@@ -156,46 +146,35 @@ public class SpotifyAuth extends AppCompatActivity {
         });
     }
 
-    /**
-     * Creates a UI thread to update a TextView in the background
-     * Reduces UI latency and makes the system perform more consistently
-     *
-     * @param text the text to set
-     * @param textView TextView object to update
-     */
+
+
+    // Just for updating the textviews to see what the api calls return
     private void setTextAsync(final String text, TextView textView) {
         runOnUiThread(() -> textView.setText(text));
     }
 
-    /**
-     * Get authentication request
-     *
-     * @param type the type of the request
-     * @return the authentication request
-     */
+    // Get authentication request
     private AuthorizationRequest getAuthenticationRequest(AuthorizationResponse.Type type) {
         return new AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
                 .setShowDialog(false)
-                .setScopes(new String[] { "user-read-email", "user-top-read" }) // <--- Change the scope of your requested token here
+                .setScopes(new String[] { "user-read-email", "user-top-read", "user-follow-read" }) // <--- Change the scope of your requested token here
                 .setCampaign("your-campaign-token")
                 .build();
     }
 
-    /**
-     * Gets the redirect Uri for Spotify
-     *
-     * @return redirect Uri object
-     */
+    // Gets the redirect Uri for Spotify.
     private Uri getRedirectUri() {
         return Uri.parse(REDIRECT_URI);
     }
 
+    // Cancel current api call before starting next call.
     private void cancelCall() {
         if (mCall != null) {
             mCall.cancel();
         }
     }
 
+    // Don't remember tbh.
     @Override
     protected void onDestroy() {
         cancelCall();
