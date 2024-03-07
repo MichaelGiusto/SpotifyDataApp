@@ -37,7 +37,6 @@ public class SpotifyWrapped {
 
                 topArtists.add(new Artist(artistName, artistGenres, artistImageUrl, (i+1)));
             }
-            //System.out.println(topArtists);
         } catch (JSONException e) {
             Log.d("JSON", "Failed to parse data: " + e);
         }
@@ -67,7 +66,6 @@ public class SpotifyWrapped {
 
                 topTracks.add(new Track(artistName, trackImageUrl, trackArtists, (i+1)));
             }
-            System.out.println(topTracks);
         } catch (JSONException e) {
             Log.d("JSON", "Failed to parse data: " + e);
         }

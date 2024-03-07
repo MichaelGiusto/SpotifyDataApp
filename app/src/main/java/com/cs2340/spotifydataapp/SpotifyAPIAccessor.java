@@ -56,14 +56,13 @@ public class SpotifyAPIAccessor {
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
-                    System.out.println(jsonObject);
+                    //System.out.println(jsonObject);
                     // PASS DATA FROM HERE TO DATABASE
                     SpotifyWrapped temp = new SpotifyWrapped();
                     if (jsonObject.getJSONArray("items").getJSONObject(0).get("type").toString().equals("artist"))
                         temp.setTopArtists(jsonObject);
                     else if (jsonObject.getJSONArray("items").getJSONObject(0).get("type").toString().equals("track"))
                         temp.setTopTracks(jsonObject);
-
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                 }
