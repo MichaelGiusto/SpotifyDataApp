@@ -23,7 +23,7 @@ public class SpotifyAPIAccessor {
     public static void setmAccessToken(String newAccessToken) {
         mAccessToken = newAccessToken;
     }
-    public static void test() {
+    public static void getTopUserArtists() {
         callSpotifyAPI("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=1");
     }
 
@@ -57,6 +57,7 @@ public class SpotifyAPIAccessor {
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     System.out.println(jsonObject.toString());
+                    // PASS DATA FROM HERE TO DATABASE
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                 }

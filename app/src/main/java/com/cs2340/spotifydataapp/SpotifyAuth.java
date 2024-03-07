@@ -54,7 +54,6 @@ public class SpotifyAuth extends AppCompatActivity {
         Button profileBtn = (Button) findViewById(R.id.profile_btn);
 
         // Set the click listeners for the buttons
-
         tokenBtn.setOnClickListener((v) -> {
             getToken();
         });
@@ -65,7 +64,7 @@ public class SpotifyAuth extends AppCompatActivity {
 
         profileBtn.setOnClickListener((v) -> {
             SpotifyAPIAccessor.setmAccessToken(mAccessToken);
-            SpotifyAPIAccessor.test();
+            SpotifyAPIAccessor.getTopUserArtists();
         });
 
     }
@@ -96,11 +95,9 @@ public class SpotifyAuth extends AppCompatActivity {
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             mAccessToken = response.getAccessToken();
             setTextAsync(mAccessToken, tokenTextView);
-
         } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
             mAccessCode = response.getCode();
             setTextAsync(mAccessCode, codeTextView);
-            System.out.println(mAccessCode);
         }
     }
 
