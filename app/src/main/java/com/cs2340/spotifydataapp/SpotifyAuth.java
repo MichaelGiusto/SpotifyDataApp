@@ -64,7 +64,8 @@ public class SpotifyAuth extends AppCompatActivity {
         });
 
         profileBtn.setOnClickListener((v) -> {
-            onGetUserProfileClicked();
+            SpotifyAPIAccessor.setmAccessToken(mAccessToken);
+            SpotifyAPIAccessor.test();
         });
 
     }
@@ -103,51 +104,6 @@ public class SpotifyAuth extends AppCompatActivity {
         }
     }
 
-    // Actual REST API call for information.
-    public void onGetUserProfileClicked() {
-        if (mAccessToken == null) {
-            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Create a request to get the user profile.
-        final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=1")
-                //.url("https://api.spotify.com/v1/me/shows?offset=0&limit=20")
-                //.url("https://api.spotify.com/v1/users/mbqxflrx0pzpnmn6xpf3sayql")
-                //.url("https://api.spotify.com/v1/users/mbqxflrx0pzpnmn6xpf3sayql/playlists")
-                .addHeader("Authorization", "Bearer " + mAccessToken)
-                .build();
-
-
-        cancelCall();
-        mCall = mOkHttpClient.newCall(request);
-
-        mCall.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(SpotifyAuth.this, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    final JSONObject jsonObject = new JSONObject(response.body().string());
-                    setTextAsync(jsonObject.toString(3), profileTextView);
-                    System.out.println(jsonObject.toString());
-                } catch (JSONException e) {
-                    Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(SpotifyAuth.this, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-
-
     // Just for updating the textviews to see what the api calls return
     private void setTextAsync(final String text, TextView textView) {
         runOnUiThread(() -> textView.setText(text));
@@ -165,19 +121,5 @@ public class SpotifyAuth extends AppCompatActivity {
     // Gets the redirect Uri for Spotify.
     private Uri getRedirectUri() {
         return Uri.parse(REDIRECT_URI);
-    }
-
-    // Cancel current api call before starting next call.
-    private void cancelCall() {
-        if (mCall != null) {
-            mCall.cancel();
-        }
-    }
-
-    // Don't remember tbh.
-    @Override
-    protected void onDestroy() {
-        cancelCall();
-        super.onDestroy();
     }
 }
