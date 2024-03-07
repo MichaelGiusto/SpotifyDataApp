@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SpotifyWrapped {
     ArrayList<Artist> topArtists;
-    ArrayList<String> topTracks;
+    ArrayList<Track> topTracks;
 
     public ArrayList<Artist> getTopArtists() {
         return topArtists;
@@ -37,21 +37,40 @@ public class SpotifyWrapped {
 
                 topArtists.add(new Artist(artistName, artistGenres, artistImageUrl, (i+1)));
             }
-            System.out.println(topArtists);
+            //System.out.println(topArtists);
         } catch (JSONException e) {
             Log.d("JSON", "Failed to parse data: " + e);
         }
-
-
-        //this.topArtists = topArtists;
     }
 
-    public ArrayList<String> getTopTracks() {
+    public ArrayList<Track> getTopTracks() {
         return topTracks;
     }
 
-    public void setTopTracks(ArrayList<String> topTracks) {
-        this.topTracks = topTracks;
+    public void setTopTracks(JSONObject topTracksJSON) {
+        try {
+            JSONArray tracks = topTracksJSON.getJSONArray("items");
+            ArrayList<Track> topTracks = new ArrayList<Track>();
+
+            for (int i = 0; i < tracks.length(); i++) {
+                JSONObject track = tracks.getJSONObject(i);
+
+                String artistName = track.get("name").toString();
+
+                String trackImageUrl = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).get("url").toString();
+
+                JSONArray trackArtistsJSON = track.getJSONArray("artists");
+                ArrayList<String> trackArtists = new ArrayList<String>();
+                for (int j = 0; j < trackArtistsJSON.length(); j++) {
+                    trackArtists.add(trackArtistsJSON.getJSONObject(j).get("name").toString());
+                }
+
+                topTracks.add(new Track(artistName, trackImageUrl, trackArtists, (i+1)));
+            }
+            System.out.println(topTracks);
+        } catch (JSONException e) {
+            Log.d("JSON", "Failed to parse data: " + e);
+        }
     }
 
 }

@@ -63,8 +63,8 @@ public class SpotifyAuth extends AppCompatActivity {
         // Sets the new access token value in the API Accessor class
         SpotifyAPIAccessor.setmAccessToken(mAccessToken);
         // Gets the relevant user data
-        //SpotifyAPIAccessor.getTopUserTracks();
-        SpotifyAPIAccessor.getTopUserArtists();
+        SpotifyAPIAccessor.getTopUserTracks();
+        //SpotifyAPIAccessor.getTopUserArtists();
 
         // Go to next page: TODO replace target page
         Intent intent = new Intent(SpotifyAuth.this, MainActivity.class);

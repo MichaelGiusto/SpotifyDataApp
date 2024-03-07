@@ -6,14 +6,13 @@ import java.util.ArrayList;
 
 public class Track {
     String name;
-    ArrayList<String> genres;
+    //ArrayList<String> genres;
     String imageUrl;
     ArrayList<String> artists;
     int rank;
 
-    Track(String name, ArrayList<String> genres, String imageUrl, ArrayList<String> artists, int rank) {
+    Track(String name, String imageUrl, ArrayList<String> artists, int rank) {
         this.name = name;
-        this.genres = genres;
         this.imageUrl = imageUrl;
         this.artists = artists;
         this.rank = rank;
@@ -24,9 +23,9 @@ public class Track {
         this.name = name;
     }
 
-    public void setGenres(ArrayList<String> genres) {
+    /*public void setGenres(ArrayList<String> genres) {
         this.genres = genres;
-    }
+    }*/
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
@@ -46,9 +45,9 @@ public class Track {
         return name;
     }
 
-    public ArrayList<String> getGenres() {
+    /*public ArrayList<String> getGenres() {
         return genres;
-    }
+    }*/
 
     public String getImageUrl() {
         return imageUrl;
@@ -67,11 +66,9 @@ public class Track {
     @NonNull
     @Override
     public String toString() {
-        String genresString = String.join(", ", genres);
         String artistsString = String.join(", ", artists);
 
         return "Song: " + name + "\n" +
-                "Genres: " + genresString + "\n" +
                 "Image URL: " + imageUrl + "\n" +
                 "Artists: " + artistsString + "\n" +
                 "Rank: " + rank + "\n";
