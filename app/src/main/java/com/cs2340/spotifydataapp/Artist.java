@@ -10,7 +10,7 @@ public class Artist {
     String imageUrl;
     int rank;
 
-    Artist(String name, ArrayList<String> genres, String imageUrl, ArrayList<String> artists, int rank) {
+    Artist(String name, ArrayList<String> genres, String imageUrl, int rank) {
         this.name = name;
         this.genres = genres;
         this.imageUrl = imageUrl;

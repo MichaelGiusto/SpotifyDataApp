@@ -58,6 +58,9 @@ public class SpotifyAPIAccessor {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     System.out.println(jsonObject);
                     // PASS DATA FROM HERE TO DATABASE
+                    SpotifyWrapped temp = new SpotifyWrapped();
+                    temp.setTopArtists(jsonObject);
+
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                 }
