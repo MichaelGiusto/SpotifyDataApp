@@ -43,67 +43,39 @@ public class SpotifyAuth extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spotify_auth);
 
-        // Initialize the views
-        tokenTextView = (TextView) findViewById(R.id.token_text_view);
-        codeTextView = (TextView) findViewById(R.id.code_text_view);
-        profileTextView = (TextView) findViewById(R.id.response_text_view);
-
-        // Initialize the buttons
-        Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button codeBtn = (Button) findViewById(R.id.code_btn);
-        Button profileBtn = (Button) findViewById(R.id.profile_btn);
-
-        // Set the click listeners for the buttons
-        tokenBtn.setOnClickListener((v) -> {
+        // Initialize the button.
+        Button auth_button = (Button) findViewById(R.id.auth_button);
+        auth_button.setOnClickListener((v) -> {
             getToken();
-        });
-
-        codeBtn.setOnClickListener((v) -> {
-            getCode();
-        });
-
-        profileBtn.setOnClickListener((v) -> {
-            SpotifyAPIAccessor.setmAccessToken(mAccessToken);
-            SpotifyAPIAccessor.getTopUserTracks();
         });
 
     }
 
     // Get token from Spotify.
-    // This method will open the Spotify login activity and get the token.
+    // This method will open the Spotify login activity and get the access token.
     public void getToken() {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
         AuthorizationClient.openLoginActivity(SpotifyAuth.this, AUTH_TOKEN_REQUEST_CODE, request);
     }
 
-    // Get code from Spotify.
-    // This method will open the Spotify login activity and get the code.
-    public void getCode() {
-        final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.CODE);
-        AuthorizationClient.openLoginActivity(SpotifyAuth.this, AUTH_CODE_REQUEST_CODE, request);
-    }
-
-
     // When the app leaves this activity to momentarily get a token/code, this function
-    // fetches the result of that external activity to get the response from Spotify
+    // fetches the result of that external activity to get the response from Spotify.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         final AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, data);
 
-        // Check which request code is present (if any)
-        if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
-            mAccessToken = response.getAccessToken();
-            setTextAsync(mAccessToken, tokenTextView);
-        } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
-            mAccessCode = response.getCode();
-            setTextAsync(mAccessCode, codeTextView);
-        }
-    }
+        // Get token response from api call.
+        mAccessToken = response.getAccessToken();
+        // Sets the new access token value in the API Accessor class
+        SpotifyAPIAccessor.setmAccessToken(mAccessToken);
+        // Gets the relevant user data: TODO connect to database
+        SpotifyAPIAccessor.getTopUserTracks();
+        SpotifyAPIAccessor.getTopUserArtists();
 
-    // Just for updating the textviews to see what the api calls return
-    private void setTextAsync(final String text, TextView textView) {
-        runOnUiThread(() -> textView.setText(text));
+        // Go to next page: TODO replace target page
+        Intent intent = new Intent(SpotifyAuth.this, MainActivity.class);
+        startActivity(intent);
     }
 
     // Get authentication request

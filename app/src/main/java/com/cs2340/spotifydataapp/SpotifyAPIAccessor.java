@@ -44,7 +44,6 @@ public class SpotifyAPIAccessor {
                 .build();
 
 
-        cancelCall();
         mCall = mOkHttpClient.newCall(request);
 
         mCall.enqueue(new Callback() {
@@ -64,13 +63,6 @@ public class SpotifyAPIAccessor {
                 }
             }
         });
-    }
-
-    // Cancel current api call before starting next call.
-    private static void cancelCall() {
-        if (mCall != null) {
-            mCall.cancel();
-        }
     }
 }
 
