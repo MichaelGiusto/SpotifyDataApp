@@ -64,7 +64,7 @@ public class SpotifyAuth extends AppCompatActivity {
 
         profileBtn.setOnClickListener((v) -> {
             SpotifyAPIAccessor.setmAccessToken(mAccessToken);
-            SpotifyAPIAccessor.getTopUserArtists();
+            SpotifyAPIAccessor.getTopUserTracks();
         });
 
     }

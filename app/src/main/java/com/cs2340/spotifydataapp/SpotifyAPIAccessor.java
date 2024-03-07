@@ -23,6 +23,10 @@ public class SpotifyAPIAccessor {
     public static void setmAccessToken(String newAccessToken) {
         mAccessToken = newAccessToken;
     }
+    public static void getTopUserTracks() {
+        callSpotifyAPI("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=1");
+    }
+
     public static void getTopUserArtists() {
         callSpotifyAPI("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=1");
     }
@@ -36,9 +40,6 @@ public class SpotifyAPIAccessor {
         // Create a request to get the user profile.
         final Request request = new Request.Builder()
                 .url(targetUrl)
-                //.url("https://api.spotify.com/v1/me/shows?offset=0&limit=20")
-                //.url("https://api.spotify.com/v1/users/mbqxflrx0pzpnmn6xpf3sayql")
-                //.url("https://api.spotify.com/v1/users/mbqxflrx0pzpnmn6xpf3sayql/playlists")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -56,7 +57,7 @@ public class SpotifyAPIAccessor {
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
-                    System.out.println(jsonObject.toString());
+                    System.out.println(jsonObject);
                     // PASS DATA FROM HERE TO DATABASE
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
@@ -72,3 +73,53 @@ public class SpotifyAPIAccessor {
         }
     }
 }
+
+
+// SAMPLE RESPONSE FROM getTopUserArtists()
+/*
+{
+   "items": [
+      {
+         "external_urls": {
+            "spotify": "https:\/\/open.spotify.com\/artist\/0kpcv0xdcnCWiCXr3htCwx"
+         },
+         "followers": {
+            "href": null,
+            "total": 30156
+         },
+         "genres": [
+            "japanese r&b"
+         ],
+         "href": "https:\/\/api.spotify.com\/v1\/artists\/0kpcv0xdcnCWiCXr3htCwx",
+         "id": "0kpcv0xdcnCWiCXr3htCwx",
+         "images": [
+            {
+               "height": 640,
+               "url": "https:\/\/i.scdn.co\/image\/ab6761610000e5ebae2afb684ff386fc8e7e9bde",
+               "width": 640
+            },
+            {
+               "height": 320,
+               "url": "https:\/\/i.scdn.co\/image\/ab67616100005174ae2afb684ff386fc8e7e9bde",
+               "width": 320
+            },
+            {
+               "height": 160,
+               "url": "https:\/\/i.scdn.co\/image\/ab6761610000f178ae2afb684ff386fc8e7e9bde",
+               "width": 160
+            }
+         ],
+         "name": "Kenta Dedachi",
+         "popularity": 32,
+         "type": "artist",
+         "uri": "spotify:artist:0kpcv0xdcnCWiCXr3htCwx"
+      }
+   ],
+   "total": 120,
+   "limit": 1,
+   "offset": 0,
+   "href": "https:\/\/api.spotify.com\/v1\/me\/top\/artists?limit=1&time_range=long_term",
+   "next": "https:\/\/api.spotify.com\/v1\/me\/top\/artists?offset=1&limit=1&time_range=long_term",
+   "previous": null
+}
+ */
