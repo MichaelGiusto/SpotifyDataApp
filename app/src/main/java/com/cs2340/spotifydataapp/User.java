@@ -79,4 +79,6 @@ public class User {
     public void setPreviousWrapped(Stack<SpotifyWrapped> previousWrapped) {
         this.previousWrapped = previousWrapped;
     }
+
+
 }

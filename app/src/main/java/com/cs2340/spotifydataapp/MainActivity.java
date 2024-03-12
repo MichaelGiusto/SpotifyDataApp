@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,4 +30,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+// The code below is for adding users to the database...would happen on click for a user...
+//    // Instantiate the database helper class
+//    UserDatabase userDatabase = new UserDatabase(getApplicationContext());
+//
+//    // Create a new user object
+//    User user = new User("username", "password", new ArrayList<>(), "favAlbum", "favArtist", "favShow", new Stack<>());
+//
+//    // Add the user to the database
+//    long result = userDatabase.addUser(user);
 }
