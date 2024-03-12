@@ -67,7 +67,7 @@ public class SpotifyAuth extends AppCompatActivity {
         //SpotifyAPIAccessor.getTopUserArtists();
 
         // Go to next page: TODO replace target page
-        Intent intent = new Intent(SpotifyAuth.this, MainActivity.class);
+        Intent intent = new Intent(SpotifyAuth.this, HomeActivity.class);
         startActivity(intent);
     }
 

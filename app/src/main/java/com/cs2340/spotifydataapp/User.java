@@ -1,5 +1,11 @@
 package com.cs2340.spotifydataapp;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -23,6 +29,17 @@ public class User {
         this.favoriteShow = favoriteShow;
         this.previousWrapped = previousWrapped;
     }
+
+    public User() {
+        this.username = null;
+        this.password = null;
+        this.topArtists = null;
+        this.favoriteAlbum = null;
+        this.favoriteArist = null;
+        this.favoriteShow = null;
+        this.previousWrapped = null;
+    }
+
 
     public String getUsername() {
         return username;
@@ -79,6 +96,8 @@ public class User {
     public void setPreviousWrapped(Stack<SpotifyWrapped> previousWrapped) {
         this.previousWrapped = previousWrapped;
     }
+
+
 
 
 }

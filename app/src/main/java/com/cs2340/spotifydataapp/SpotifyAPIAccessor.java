@@ -20,6 +20,8 @@ public class SpotifyAPIAccessor {
     private static final OkHttpClient mOkHttpClient = new OkHttpClient();
     private static Call mCall;
 
+    public static User currentUser =  new User();
+
     public static void setmAccessToken(String newAccessToken) {
         mAccessToken = newAccessToken;
     }
@@ -29,6 +31,10 @@ public class SpotifyAPIAccessor {
 
     public static void getTopUserArtists() {
         callSpotifyAPI("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=1");
+    }
+
+    public static void getUserInfo() {
+        callSpotifyAPI("https://api.spotify.com/v1/me");
     }
 
     // Actual REST API call.
@@ -63,6 +69,7 @@ public class SpotifyAPIAccessor {
                         temp.setTopArtists(jsonObject);
                     else if (jsonObject.getJSONArray("items").getJSONObject(0).get("type").toString().equals("track"))
                         temp.setTopTracks(jsonObject);
+                    currentUser.setUsername(jsonObject.get("display_name").toString());
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                 }
