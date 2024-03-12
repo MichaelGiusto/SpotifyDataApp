@@ -17,16 +17,11 @@ import okhttp3.Response;
 import okhttp3.MediaType;
 
 public class ChatGPTAPIAccessor {
-    private static String apiKey;
+    final private static String apiKey = "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";
     private static final OkHttpClient mOkHttpClient = new OkHttpClient();
     private static Call mCall;
 
-    public static void setApiKey(String newApiKey) {
-        apiKey = "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";
-        //apiKey = newApiKey;
-    }
     public static void describeArtists() {
-        setApiKey("test");
         callSpotifyAPI("https://api.openai.com/v1/chat/completions");
     }
 
