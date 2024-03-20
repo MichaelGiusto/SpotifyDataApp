@@ -1,5 +1,6 @@
 package com.cs2340.spotifydataapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.navigation.NavController;
@@ -33,6 +35,19 @@ public class HomeActivity extends AppCompatActivity {
         String username = SpotifyAPIAccessor.currentUser.getUsername();
         //need to DEBUG before uncommenting!
        // name.setText(username);
+
+        ImageButton btn = findViewById(R.id.accountInfo);
+        viewAccountInfo(btn);
+    }
+
+    void viewAccountInfo(ImageButton btn) {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, AccountActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
