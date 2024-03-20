@@ -31,7 +31,8 @@ public class HomeActivity extends AppCompatActivity {
         TextView name = findViewById(R.id.textView);
         SpotifyAPIAccessor.getUserInfo();
         String username = SpotifyAPIAccessor.currentUser.getUsername();
-        name.setText(username);
+        //need to DEBUG before uncommenting!
+       // name.setText(username);
     }
 
     @Override
