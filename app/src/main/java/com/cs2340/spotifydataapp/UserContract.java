@@ -12,6 +12,8 @@ public class UserContract {
         public static final String COLUMN_PASSWORD = "password";
         public static final String COLUMN_TOP_ARTISTS = "top_artists";
         public static final String COLUMN_FAVORITE_ALBUM = "favorite_album";
+
+        public static final String COLUMN_TOP_TRACKS = "top_tracks";
         public static final String COLUMN_FAVORITE_ARTIST = "favorite_artist";
         public static final String COLUMN_FAVORITE_SHOW = "favorite_show";
         public static final String COLUMN_PREVIOUS_WRAPPED = "previous_wrapped";
@@ -22,7 +24,10 @@ public class UserContract {
                         _ID + " INTEGER PRIMARY KEY," +
                         COLUMN_USERNAME + " TEXT," +
                         COLUMN_PASSWORD + " TEXT," +
+
                         COLUMN_TOP_ARTISTS + " TEXT," +
+                        COLUMN_TOP_TRACKS + "TEXT," +
+
                         COLUMN_FAVORITE_ALBUM + " TEXT," +
                         COLUMN_FAVORITE_ARTIST + " TEXT," +
                         COLUMN_FAVORITE_SHOW + " TEXT," +

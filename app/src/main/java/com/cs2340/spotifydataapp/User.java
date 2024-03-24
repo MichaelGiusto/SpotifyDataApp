@@ -13,17 +13,16 @@ public class User {
 
     String username;
     String password;
-    ArrayList<String> topArtists;
     String favoriteAlbum;
     String favoriteArist;
     String favoriteShow;
     Stack<SpotifyWrapped> previousWrapped;
 
-    public User(String username, String password, ArrayList<String> topArtists,
+
+    public User(String username, String password,
                 String favoriteAlbum, String favoriteArist, String favoriteShow, Stack<SpotifyWrapped> previousWrapped) {
         this.username = username;
         this.password = password;
-        this.topArtists = topArtists;
         this.favoriteAlbum = favoriteAlbum;
         this.favoriteArist = favoriteArist;
         this.favoriteShow = favoriteShow;
@@ -33,7 +32,7 @@ public class User {
     public User() {
         this.username = null;
         this.password = null;
-        this.topArtists = null;
+        //this.topArtists = null;
         this.favoriteAlbum = null;
         this.favoriteArist = null;
         this.favoriteShow = null;
@@ -55,14 +54,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public ArrayList<String> getTopArtists() {
-        return topArtists;
-    }
-
-    public void setTopArtists(ArrayList<String> topArtists) {
-        this.topArtists = topArtists;
     }
 
     public String getFavoriteAlbum() {
@@ -96,8 +87,6 @@ public class User {
     public void setPreviousWrapped(Stack<SpotifyWrapped> previousWrapped) {
         this.previousWrapped = previousWrapped;
     }
-
-
 
 
 }
