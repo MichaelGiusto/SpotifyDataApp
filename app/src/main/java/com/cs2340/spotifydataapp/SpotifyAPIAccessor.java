@@ -26,19 +26,18 @@ public class SpotifyAPIAccessor {
         mAccessToken = newAccessToken;
     }
     public static void getTopUserTracks() {
-        callSpotifyAPI("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=1");
+        callSpotifyAPI("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=1", "track");
     }
 
     public static void getTopUserArtists() {
-        callSpotifyAPI("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=1");
+        callSpotifyAPI("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=1", "artist");
     }
-
     public static void getUserInfo() {
-        callSpotifyAPI("https://api.spotify.com/v1/me");
+        callSpotifyAPI("https://api.spotify.com/v1/me", "user");
     }
 
     // Actual REST API call.
-    private static void callSpotifyAPI(String targetUrl) {
+    private static void callSpotifyAPI(String targetUrl, String returnType) {
         if (mAccessToken == null) {
             return;
         }
@@ -65,9 +64,9 @@ public class SpotifyAPIAccessor {
                     //System.out.println(jsonObject);
                     // PASS DATA FROM HERE TO DATABASE
                     SpotifyWrapped temp = new SpotifyWrapped();
-                    if (jsonObject.getJSONArray("items").getJSONObject(0).get("type").toString().equals("artist"))
+                    if (returnType.equals("artist"))
                         temp.setTopArtists(jsonObject);
-                    else if (jsonObject.getJSONArray("items").getJSONObject(0).get("type").toString().equals("track"))
+                    else if (returnType.equals("track"))
                         temp.setTopTracks(jsonObject);
                     currentUser.setUsername(jsonObject.get("display_name").toString());
                 } catch (JSONException e) {

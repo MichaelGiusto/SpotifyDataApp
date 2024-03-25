@@ -14,7 +14,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import android.os.Bundle;
 
-public class ExportImage {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ExportImage extends AppCompatActivity {
     //context is where we are saving the image
     public static void captureAndSaveLayout(Context context, View view) {
         Bitmap bitmap = captureView(view);
@@ -24,7 +26,6 @@ public class ExportImage {
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         view.draw(new Canvas(bitmap));
         return bitmap;
-        }
     }
     private static void saveBitmap(Context context, Bitmap bitmap) {
         File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "captured_layout.png");
@@ -41,13 +42,13 @@ public class ExportImage {
     }
 
     //this calls above code
-    public static void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
     public void captureLayout(View view) {
-        RelativeLayout layout = findViewById(R.id.layout_main);
-        LayoutCaptureUtils.captureAndSaveLayout(this, layout);
+        //RelativeLayout layout = findViewById(R.id.);
+        //LayoutCaptureUtils.captureAndSaveLayout(this, layout);
     }
 
 }
