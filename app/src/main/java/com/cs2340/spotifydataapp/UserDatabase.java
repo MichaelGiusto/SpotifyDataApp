@@ -22,10 +22,12 @@ public class UserDatabase {
         ContentValues values = new ContentValues();
         values.put(UserContract.UserEntry.COLUMN_USERNAME, user.getUsername());
         values.put(UserContract.UserEntry.COLUMN_PASSWORD, user.getPassword());
-        values.put(UserContract.UserEntry.COLUMN_TOP_ARTISTS, listToString(user.getTopArtists()));
         values.put(UserContract.UserEntry.COLUMN_FAVORITE_ALBUM, user.getFavoriteAlbum());
         values.put(UserContract.UserEntry.COLUMN_FAVORITE_ARTIST, user.getFavoriteArist());
         values.put(UserContract.UserEntry.COLUMN_FAVORITE_SHOW, user.getFavoriteShow());
+
+        values.put(UserContract.UserEntry.COLUMN_TOP_TRACKS, trackToString(user.getPreviousWrapped().peek().getTopTracks()));
+        values.put(UserContract.UserEntry.COLUMN_TOP_ARTISTS, artistToString(user.getPreviousWrapped().peek().getTopArtists()));
         // Convert Stack to String representation
         values.put(UserContract.UserEntry.COLUMN_PREVIOUS_WRAPPED, stackToString(user.getPreviousWrapped()));
 
@@ -47,6 +49,26 @@ public class UserDatabase {
     private String stackToString(Stack<SpotifyWrapped> stack) {
         StringBuilder stringBuilder = new StringBuilder();
         for (SpotifyWrapped item : stack) {
+            stringBuilder.append(item.toString()).append(",");
+        }
+        // Remove the last comma
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
+    }
+
+    private String trackToString(ArrayList<Track> list) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Track item : list) {
+            stringBuilder.append(item.toString()).append(",");
+        }
+        // Remove the last comma
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
+    }
+
+    private String artistToString(ArrayList<Artist> list) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Artist item : list) {
             stringBuilder.append(item.toString()).append(",");
         }
         // Remove the last comma

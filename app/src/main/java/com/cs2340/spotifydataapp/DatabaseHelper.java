@@ -58,6 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Create tables again
         onCreate(db);
     }
+
+    public void deleteAccount(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(DATABASE_NAME, username, null);
+        db.close();
+    }
 }
 
 

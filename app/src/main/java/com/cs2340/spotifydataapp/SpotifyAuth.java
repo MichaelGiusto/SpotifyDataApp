@@ -68,7 +68,7 @@ public class SpotifyAuth extends AppCompatActivity {
         //ChatGPTAPIAccessor.describeArtists();
 
         // Go to next page: TODO replace target page
-        Intent intent = new Intent(SpotifyAuth.this, MainActivity.class);
+        Intent intent = new Intent(SpotifyAuth.this, HomeActivity.class);
         startActivity(intent);
     }
 
