@@ -35,10 +35,6 @@ public class SpotifyAuth extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spotify_auth);
-
-        // Initialize the button.
-        getToken();
-
     }
 
     // Get token from Spotify.
