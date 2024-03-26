@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.cs2340.spotifydataapp.databinding.AccountSettingsBinding;
+
 public class AccountActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private DatabaseHelper dbh;
