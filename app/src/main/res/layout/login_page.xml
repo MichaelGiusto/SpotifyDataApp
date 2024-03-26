@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/switch_to_signup_button"
         android:layout_width="126dp"
         android:layout_height="40dp"
         android:background="#FFFFFF"
