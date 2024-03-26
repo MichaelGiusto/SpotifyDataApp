@@ -17,7 +17,7 @@ import okhttp3.Response;
 import okhttp3.MediaType;
 
 public class ChatGPTAPIAccessor {
-    final private static String apiKey = "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";
+    final private static String apiKey = "";
     private static final OkHttpClient mOkHttpClient = new OkHttpClient();
     private static Call mCall;
 
