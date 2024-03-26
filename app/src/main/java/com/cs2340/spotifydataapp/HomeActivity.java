@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.navigation.NavController;
@@ -18,6 +19,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.cs2340.spotifydataapp.databinding.ActivityHomeBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -38,6 +42,26 @@ public class HomeActivity extends AppCompatActivity {
 
         ImageButton btn = findViewById(R.id.accountInfo);
         viewAccountInfo(btn);
+
+        List<String> stringList = new ArrayList<>();
+        stringList.add("Wrapped 3/26/2024");
+        stringList.add("Wrapped 1/20/2024");
+        stringList.add("Wrapped 1/19/2024");
+
+        LinearLayout buttonContainer = findViewById(R.id.scroll);
+
+        // Dynamically create buttons and add them to the layout
+        for (String text : stringList) {
+            Button button = new Button(this);
+            button.setText(text);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle button click
+                }
+            });
+            buttonContainer.addView(button);
+        }
     }
 
     void viewAccountInfo(ImageButton btn) {
