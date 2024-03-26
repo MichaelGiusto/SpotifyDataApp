@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,17 @@ public class SignupPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SignupPageActivity.this, LoginPageActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        Button signup_button = (Button) findViewById(R.id.signup_button);
+        signup_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newUsername = ((EditText) findViewById(R.id.signup_username)).getText().toString();
+                String newPassword = ((EditText) findViewById(R.id.signup_password)).getText().toString();
+                System.out.println(newUsername + "--" + newPassword);
+                // TODO: add new user to database.
             }
         });
 
