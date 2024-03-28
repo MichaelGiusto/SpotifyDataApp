@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "139031632474",
+    "project_id": "spotifydatabase-71788",
+    "storage_bucket": "spotifydatabase-71788.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139031632474:android:5d8399b0a98da9cc8f9663",
+        "android_client_info": {
+          "package_name": "com.cs2340.spotifydataapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvzDRd_9q_3KxhZSsc1rdh5D09VPPeC00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

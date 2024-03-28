@@ -17,7 +17,7 @@ import com.cs2340.spotifydataapp.databinding.AccountSettingsBinding;
 
 public class AccountActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
-    private DatabaseHelper dbh;
+//    private DatabaseHelper dbh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +29,13 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     void deleteAccount(Button btn) {
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //temp value for now
-                dbh.deleteAccount("hi");
-            }
-        });
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+////            public void onClick(View v) {
+////                //temp value for now
+////                dbh.deleteAccount("hi");
+////            }
+//        });
     }
 
 
