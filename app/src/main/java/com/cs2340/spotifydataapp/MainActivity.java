@@ -19,6 +19,24 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn = findViewById(R.id.spotify_auth_button);
         setupSpotifyAuthButton(btn);
+
+        //        databaseReference = FirebaseDatabase.getInstance().getReference("this is the path");
+//        databaseReference.setValue("here there").addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void unused) {
+//                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+//            }
+//        }).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                //Toast.makeText(getApplicationContext(), "complete", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     void setupSpotifyAuthButton(Button btn) {
